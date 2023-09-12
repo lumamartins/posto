@@ -105,6 +105,8 @@ CREATE TABLE `vacina_cadastro` (
   `lote` varchar(100) NOT NULL,
   `origem` varchar(300) NOT NULL,
   `dt_recebimento` date NOT NULL,
+  `dt_fabricacao` date NOT NULL,
+  `dt_validade` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `nome_vacina` (`nome_vacina`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -116,7 +118,7 @@ CREATE TABLE `vacina_cadastro` (
 
 LOCK TABLES `vacina_cadastro` WRITE;
 /*!40000 ALTER TABLE `vacina_cadastro` DISABLE KEYS */;
-INSERT INTO `vacina_cadastro` VALUES (1,'ASTRAZENECA','Fiocruz','300','21PVCD362W','Recebido','0000-00-00'),(2,'Janssen','Pharmaceutica NV','100','211J21A','Recebido do estado','0000-00-00');
+INSERT INTO `vacina_cadastro` VALUES (1,'ASTRAZENECA','Fiocruz','300','21PVCD362W','Recebido','0000-00-00','0000-00-00','0000-00-00'),(2,'Janssen','Pharmaceutica NV','100','211J21A','Recebido do estado','0000-00-00','0000-00-00','0000-00-00');
 /*!40000 ALTER TABLE `vacina_cadastro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,4 +159,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-11 21:34:36
+-- Dump completed on 2023-09-12 20:57:14
