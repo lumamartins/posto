@@ -2,24 +2,25 @@
 
 // SISTEMA onde está salvo os dados cadastrais dos pacientes
     session_start();
-    include_once('/posto/acoes/config.php');
+    include_once('config.php');
+    ini_set('default_charset', 'utf-8');
     // print_r($_SESSION);
     if((!isset($_SESSION['usuario']) == true) and (!isset($_SESSION['senha']) == true))
     {
         unset($_SESSION['usuario']);
         unset($_SESSION['senha']);
-        header('Location: /posto/acoes/login.php');
+        header('Location: ./acoes/login.php');
     }
     // usuário logado (funcionário) no sistema
     $logado = $_SESSION['usuario'];
     if(!empty($_GET['search']))
     {
         $data = $_GET['search'];
-        $sql = "SELECT * FROM medicamentos_cadastro WHERE id LIKE '%$data%' or nome LIKE '%$data%' or ORDER BY id DESC";
+        $sql = "SELECT * FROM medicamento_cadastro WHERE id LIKE '%$data%' or nome LIKE '%$data%' or ORDER BY id DESC";
     }
     else
     {
-        $sql = "SELECT * FROM medicamentos_cadastro ORDER BY id DESC";
+        $sql = "SELECT * FROM medicamento_cadastro ORDER BY id DESC";
     }
     $result = $conexao->query($sql);
 ?>
@@ -86,15 +87,13 @@
                     <th scope="col">Nome Científico</th>
                     <th scope="col">Nome Comercial</th>
                     <th scope="col">Dosagem</th>
+                    <th scope="col">Fabricação</th>
+                    <th scope="col">Validade</th>
                     <th scope="col">Fabricante</th>
-                    <th scope="col">Rua</th>
-                    <th scope="col">Numero</th>
-                    <th scope="col">Cidade</th>
-                    <th scope="col">Estado</th>
+                    <th scope="col">Origem</th>
                     <th scope="col">Forma Farmacêutica</th>
                     <th scope="col">Tipo de Uso</th>
                     <th scope="col">Número de Registro</th>
-                    <th scope="col">Validade</th>
                     <th scope="col">...</th>
                 </tr>
             </thead>
@@ -106,15 +105,13 @@
                         echo "<td>".$user_data['nome']."</td>";
                         echo "<td>".$user_data['nome_comercial']."</td>";
                         echo "<td>".$user_data['dosagem']."</td>";
+                        echo "<td>".$user_data['dt_validade']."</td>";
+                        echo "<td>".$user_data['dt_fabricacao']."</td>";
                         echo "<td>".$user_data['fabricante']."</td>";
-                        echo "<td>".$user_data['rua']."</td>";
-                        echo "<td>".$user_data['numero']."</td>";
-                        echo "<td>".$user_data['cidade']."</td>";
-                        echo "<td>".$user_data['estado']."</td>";
+                        echo "<td>".$user_data['origem']."</td>";
                         echo "<td>".$user_data['forma_farmaceutica']."</td>";
                         echo "<td>".$user_data['tipo_uso']."</td>";
                         echo "<td>".$user_data['numero_registro']."</td>";
-                        echo "<td>".$user_data['validade']."</td>";
                        
                         echo "<td>
                         <a class='btn btn-sm btn-primary' href='edit.php?id=$user_data[id]' title='Editar'>
@@ -147,7 +144,7 @@
 
     function searchData()
     {
-        window.location = '/posto/estoque/medicamento_estoque.php?search='+search.value;
+        window.location = './estoque/medicamento_estoque.php?search='+search.value;
     }
 </script>
 </html>
