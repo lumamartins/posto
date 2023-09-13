@@ -5,17 +5,16 @@ ini_set('default_charset', 'utf-8');
 if(isset($_POST['submit']))
 {
 
-        include_once('/posto/acoes/config.php');
+        include_once('config.php');
 
 
     $nome = $_POST['nome'];
     $nome_comercial = $_POST['nome_comercial'];
     $dosagem = $_POST['dosagem'];
+    $dt_fabricacao = $_POST['dt_fabricacao'];
+    $dt_validade = $_POST['dt_validade'];
     $fabricante = $_POST['fabricante'];
-    $rua = $_POST['rua'];
-    $numero = $_POST['numero'];
-    $cidade = $_POST['cidade'];
-    $estado = $_POST['estado'];
+    $origem = $_POST['origem'];
     $forma_farmaceutica = $_POST['forma_farmaceutica'];
     $tipo_uso = $_POST['tipo_uso'];
     $numero_registro = $_POST['numero_registro'];
@@ -25,8 +24,8 @@ if(isset($_POST['submit']))
 
     
         // Colunas referentes a tabela pacientes 
-    $result = mysqli_query($conexao, "INSERT INTO medicamentos_cadastro(nome, nome_comercial, dosagem, fabricante, rua, numero, cidade, estado, forma_farmaceutica, tipo_uso, numero_registro, validade) 
-    VALUES('$nome', '$nome_comercial','$dosagem','$fabricante','$rua','$numero','$cidade','$estado','$forma_farmaceutica','$tipo_uso','$numero_registro','$validade') ");
+    $result = mysqli_query($conexao, "INSERT INTO medicamentos_cadastro(nome, nome_comercial, dosagem, dt_fabricacao, dt_validade, fabricante, origem, forma_farmaceutica, tipo_uso, numero_registro, validade) 
+    VALUES('$nome', '$nome_comercial','$dosagem','$dt_fabricacao','$dt_validade','$fabricante','$origem','$forma_farmaceutica','$tipo_uso','$numero_registro','$validade') ");
 }
 
 
@@ -137,9 +136,8 @@ if(isset($_POST['submit']))
 </head>
 <body>
 
-    <div class="box">
     <form action="medicamento_cadastro.php" method="POST">
-            <fieldset>
+          
                 <legend><b>Cadastro de Medicamento</b></legend>
                 <br><br>
                 <div class="inputBox">
@@ -163,56 +161,13 @@ if(isset($_POST['submit']))
                     <input type="text" name="fabricante" id="fabricante" class="inputUser" required>
                     <label for="fabricante" class="labelInput">Fabricante:</label>
                 </div>
-                <br>
-                <div class="inputBox">
-                    <input type="text" name="rua" id="rua" class="inputUser" required>
-                    <label for="rua" class="labelInput">Rua</label>
-                </div>
-                <br>
-                <div class="inputBox">
-                    <input type="text" name="numero" id="numero" class="inputUser" required>
-                    <label for="numero" class="labelInput">Número</label>
-                </div>
                 <br><br>
                 <div class="inputBox">
-                    <input type="text" name="cidade" id="cidade" class="inputUser" required>
-                    <label for="cidade" class="labelInput">Cidade</label>
+                    <input type="text" name="origem" id="origem" class="inputUser" required>
+                    <label for="origem" class="labelInput">Origem</label>
                 </div>
-                <br><br>
-                <div class="inputBox">
-                <label for="estado" class="labelInput">Estado</label><br>
-                    <select name="estado" id="estado" class="est">
-            <option value="">Selecione um estado</option>
-            <option value="AC">Acre</option>
-            <option value="AL">Alagoas</option>
-            <option value="AP">Amapá</option>
-            <option value="AM">Amazonas</option>
-            <option value="BA">Bahia</option>
-            <option value="CE">Ceará</option>
-            <option value="DF">Distrito Federal</option>
-            <option value="ES">Espírito Santo</option>
-            <option value="GO">Goiás</option>
-            <option value="MA">Maranhão</option>
-            <option value="MT">Mato Grosso</option>
-            <option value="MS">Mato Grosso do Sul</option>
-            <option value="MG">Minas Gerais</option>
-            <option value="PA">Pará</option>
-            <option value="PB">Paraíba</option>
-            <option value="PR">Paraná</option>
-            <option value="PE">Pernambuco</option>
-            <option value="PI">Piauí</option>
-            <option value="RJ">Rio de Janeiro</option>
-            <option value="RN">Rio Grande do Norte</option>
-            <option value="RS">Rio Grande do Sul</option>
-            <option value="RO">Rondônia</option>
-            <option value="RR">Roraima</option>
-            <option value="SC">Santa Catarina</option>
-            <option value="SP">São Paulo</option>
-            <option value="SE">Sergipe</option>
-            <option value="TO">Tocantins</option>
-           
-        </select>
-                </div><br><br>
+                <br>
+                </div><br>
                 <p>Forma farmacêutica:</p>
                 <br>
                 <input type="radio" id="sólido" name="forma_farmaceutica" value="sólido" required>
@@ -250,18 +205,23 @@ if(isset($_POST['submit']))
                 <br><br><br>
             
                 <div class="inputBox">
+                <label for="numero_registro" class="labelInput">Número de Registro (ANVISA):</label><br>
                     <input type="text" name="numero_registro" id="nome" class="inputUser" placeholder="XXXXXXXXXXXXX" required>
-                    <label for="numero_registro" class="labelInput">Número de Registro (ANVISA):</label>
+                   
                 </div>
                 <br><br>
-                <label for="validade"><b>Validade: </b></label>
-                <input type="date" name="validade" id="validade" class="date"  required>
+                <label for="dt_fabricacao">Fabricação: </label>
+                <input type="date" name="dt_fabricacao" id="dt_fabricacao" class="date"  required>
+                <br><br>
+                <br><br>
+                <label for="dt_validade">Validade: </label>
+                <input type="date" name="dt_validade" id="dt_validade" class="date"  required>
                 <br><br><br>
             
                 <button type="submit" name="submit" id="submit" class="inputUser" required>Enviar</button>
                 <br><br>
                 
-            </fieldset>
+
             
            
         </form>
@@ -269,11 +229,3 @@ if(isset($_POST['submit']))
     <a href="sistema_medicamento.php" style="text-decoration:none" name="submit" id="submit"class="inputUser">Voltar</a>
     
 </html>
-
-
-
-
-
-
-
-
